@@ -1,4 +1,4 @@
-$files = @("app.js", "views\dashboard.js", "views\person-details.js", "views\add-loan.js", "views\reports.js", "views\settings.js")
+$files = @("app.js", "components.js", "views\dashboard.js", "views\person-details.js", "views\add-loan.js", "views\reports.js", "views\settings.js")
 
 foreach ($file in $files) {
     if (Test-Path $file) {

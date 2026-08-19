@@ -221,3 +221,4 @@ export default function AddLoan({ setView, onSave, currentDateStr, currencySymbo
   `;
 }
 
+

@@ -393,3 +393,4 @@ if (theme === 'dark') {
 // Render root Preact component
 render(html`<${App} />`, document.getElementById('app'));
 
+
