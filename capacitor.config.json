@@ -1,0 +1,12 @@
+{
+  "appId": "com.financebypooja.app",
+  "appName": "Finance by Pooja",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

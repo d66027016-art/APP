@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Finance by Pooja</string>
+    <string name="title_activity_main">Finance by Pooja</string>
+    <string name="package_name">com.financebypooja.app</string>
+    <string name="custom_url_scheme">com.financebypooja.app</string>
+</resources>

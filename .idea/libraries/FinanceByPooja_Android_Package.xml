@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="FinanceByPooja_Android_Package">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/FinanceByPooja_Android_Package.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

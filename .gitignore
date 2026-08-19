@@ -1,0 +1,13 @@
+# Dependencies & Builds
+/node_modules
+/dist
+/.vs
+/.vscode
+
+# Environment variables & scratch scripts
+.env
+/scratch
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Finance by Pooja - Money Lending & Interest Tracker</title>
+  <!-- SEO & PWA Meta Tags -->
+  <meta name="description" content="Personal ledger and interest management app for Pooja. Track given money, interest, repayments, and due dates effortlessly.">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.json">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Dexie.js for IndexedDB -->
+  <script src="https://unpkg.com/dexie@3.2.4/dist/dexie.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b', // Secondary Deep Slate
+              900: '#0f172a', // Primary Deep Navy
+            },
+            accent: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#10b981', // Accent Emerald Green
+              600: '#059669',
+              700: '#047857',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Hardware acceleration & smooth scrolling */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .page-transition {
+      animation: fadeIn 0.12s cubic-bezier(0, 0, 0.2, 1);
+      will-change: transform, opacity;
+      transform: translateZ(0);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#0F172A] dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen transition-colors duration-200 antialiased selection:bg-slate-800 selection:text-white">
+  <div id="app"></div>
+  <!-- Application Entry Point -->
+  <script type="module" src="./app.js"></script>
+  <!-- Register PWA Service Worker for Offline Execution -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('PWA Service Worker registered:', reg.scope))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,23 @@
+{
+  "name": "finance-by-pooja",
+  "version": "1.2.0",
+  "description": "Personal ledger and interest management app for Pooja.",
+  "main": "app.js",
+  "scripts": {
+    "build": "echo 'No build step required for this PWA'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pwa",
+    "finance",
+    "ledger",
+    "capacitor"
+  ],
+  "author": "Pooja",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2"
+  }
+}
