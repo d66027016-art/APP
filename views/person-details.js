@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from 'https://esm.sh/preact/hooks';
 import htm from 'https://esm.sh/htm';
 import { Card, Button, Input, Select, Modal, Icon, StatusBadge } from '../components.js';
 import { getLoanSummary } from '../calculations.js';
+import { generatePaymentReceiptPDF, generateDueStatementPDF } from '../pdf-generator.js';
 
 const html = htm.bind(h);
 
@@ -150,7 +151,10 @@ export default function PersonDetails({
           </div>
         </div>
         
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
+          <${Button} variant="secondary" className="text-xs" onClick=${() => generateDueStatementPDF({ loans: summarizedLoans, title: `Statement for ${personDetails.name}`, currentDateStr, currencySymbol })}>
+            <${Icon} name="download" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Statement PDF
+          <//>
           <${Button} variant="secondary" className="text-xs" onClick=${() => setIsAddLoanModalOpen(true)}>
             <${Icon} name="plus" className="w-4 h-4 text-brand-600 dark:text-brand-400" /> Add Loan
           <//>
@@ -287,9 +291,14 @@ export default function PersonDetails({
                           <p class="text-[10px] text-slate-500 dark:text-slate-400">${payment.paymentDate} • <span class="capitalize font-medium text-slate-600 dark:text-slate-300">${payment.paymentMethod.replace('_', ' ')}</span></p>
                           ${payment.notes && html`<p class="text-[10px] text-slate-400 dark:text-slate-555 italic mt-0.5">"${payment.notes}"</p>`}
                         </div>
-                        <button onClick=${() => onDeletePayment(payment.id)} class="text-slate-400 hover:text-rose-500 p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">
-                          <${Icon} name="x" className="w-3.5 h-3.5" />
-                        </button>
+                        <div class="flex items-center gap-1">
+                          <button onClick=${() => generatePaymentReceiptPDF({ person: personDetails, loan, payment, currencySymbol })} title="Download Receipt PDF" class="text-emerald-600 hover:text-emerald-700 p-1.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors">
+                            <${Icon} name="download" className="w-3.5 h-3.5" />
+                          </button>
+                          <button onClick=${() => onDeletePayment(payment.id)} title="Delete Payment" class="text-slate-400 hover:text-rose-500 p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">
+                            <${Icon} name="x" className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
                     `)}
                   </div>

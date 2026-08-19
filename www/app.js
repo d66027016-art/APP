@@ -17,6 +17,7 @@ import {
   importAllData
 } from './database.js';
 import { getLoanSummary } from './calculations.js';
+import { checkAndNotifyDuePayments } from './notification-service.js';
 
 // Reusable Components
 import { Icon, Toast } from './components.js';
@@ -73,7 +74,7 @@ function App() {
   useEffect(() => {
     if (loans.length > 0) {
       const enriched = loans.map(l => getLoanSummary(l, l.payments, SYSTEM_DATE));
-      checkAndTriggerNotifications(enriched, SYSTEM_DATE);
+      checkAndNotifyDuePayments(enriched, SYSTEM_DATE);
     }
   }, [loans]);
 

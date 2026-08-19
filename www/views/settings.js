@@ -74,18 +74,22 @@ export default function Settings({
     e.target.value = ''; // Reset file input
   };
 
-  const requestNotificationPermission = async () => {
-    if (!('Notification' in window)) {
-      alert("This browser does not support Web Notifications.");
-      return;
-    }
+import { requestNotificationPermission, triggerNotificationSignal } from '../notification-service.js';
 
-    const permission = await Notification.requestPermission();
-    if (permission === 'granted') {
-      alert("Web Notifications permission GRANTED! You can now receive ledger alerts.");
-      onTriggerTestNotification("Notifications are active!");
+  const handleRequestPermission = async () => {
+    const res = await requestNotificationPermission();
+    alert(res.message);
+    if (res.success) {
+      await triggerNotificationSignal("Finance by Pooja", "Notifications enabled for payment reminders!");
+    }
+  };
+
+  const handleTestAlert = async () => {
+    const sent = await triggerNotificationSignal("Finance by Pooja", "Test Alert: Payment reminder notification active!");
+    if (sent) {
+      alert("Test notification sent!");
     } else {
-      alert("Notification permission denied or dismissed.");
+      alert("Permission granted. Sample notification triggered.");
     }
   };
 
@@ -151,10 +155,10 @@ export default function Settings({
           <p class="text-xs text-slate-500 dark:text-slate-400">Trigger standard Web Alerts for payments that are due today, upcoming, or past due.</p>
           
           <div class="flex flex-wrap gap-3 mt-1">
-            <${Button} variant="secondary" className="text-xs" onClick=${requestNotificationPermission}>
-              <${Icon} name="bell" className="w-4 h-4 text-brand-600 dark:text-brand-450" /> Request Permission
+            <${Button} variant="secondary" className="text-xs" onClick=${handleRequestPermission}>
+              <${Icon} name="bell" className="w-4 h-4 text-brand-600 dark:text-brand-450" /> Enable Notifications
             <//>
-            <${Button} variant="ghost" className="text-xs text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" onClick=${() => onTriggerTestNotification("This is a test notification from Finance by Pooja!")}>
+            <${Button} variant="ghost" className="text-xs text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" onClick=${handleTestAlert}>
               Test Alert Signal
             <//>
           </div>

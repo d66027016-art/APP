@@ -3,6 +3,7 @@ import { useState, useMemo } from 'https://esm.sh/preact/hooks';
 import htm from 'https://esm.sh/htm';
 import { Card, Button, Input, Select, Icon, StatusBadge } from '../components.js';
 import { getLoanSummary } from '../calculations.js';
+import { generateDueStatementPDF } from '../pdf-generator.js';
 
 const html = htm.bind(h);
 
@@ -194,12 +195,15 @@ export default function Dashboard({ loans = [], setView, currencySymbol = '₹',
                 <h1 class="text-3xl font-black text-white mt-2">${formatCurrency(stats.todayDue)}</h1>
                 <p class="text-xs text-slate-400 mt-1">${todayDueLoans.length} payments due today (${currentDateStr})</p>
               </div>
-              <div class="mt-4 flex gap-3 z-10">
+              <div class="mt-4 flex flex-wrap gap-3 z-10">
                 <${Button} variant="success" onClick=${() => setActiveTab('collections')}>
                   View Due Payments
                 <//>
-                <${Button} variant="secondary" className="bg-slate-800 text-white border-slate-700 hover:bg-slate-700" onClick=${() => setView({ name: 'add-loan' })}>
-                  <${Icon} name="plus" className="w-4 h-4" /> Add Person / Loan
+                <${Button} variant="secondary" className="bg-slate-800 text-white border-slate-700 hover:bg-slate-700 text-xs" onClick=${() => generateDueStatementPDF({ loans: enrichedLoans.filter(l => l.remainingAmount > 0), title: 'All Outstanding & Due Payments Statement', currentDateStr, currencySymbol })}>
+                  <${Icon} name="download" className="w-4 h-4 text-emerald-400" /> Export PDF Statement
+                <//>
+                <${Button} variant="secondary" className="bg-slate-800 text-white border-slate-700 hover:bg-slate-700 text-xs" onClick=${() => setView({ name: 'add-loan' })}>
+                  <${Icon} name="plus" className="w-4 h-4" /> Add Loan
                 <//>
               </div>
               <!-- Backing watermark icon -->
