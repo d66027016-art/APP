@@ -561,3 +561,4 @@ export default function Dashboard({ loans = [], setView, currencySymbol = '₹',
   `;
 }
 
+

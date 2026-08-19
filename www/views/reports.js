@@ -392,3 +392,4 @@ export default function Reports({ loans = [], setView, currentDateStr, currencyS
   `;
 }
 
+

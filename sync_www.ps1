@@ -1,9 +1,14 @@
-# Ensure www folder exists
-if (-not (Test-Path "www")) {
-    New-Item -ItemType Directory -Path "www" -Force | Out-Null
+# Remove old www folder completely to avoid nested directories
+if (Test-Path "www") {
+    Remove-Item -Path "www" -Recurse -Force | Out-Null
 }
 
-# Copy root JS, HTML, JSON files to www
+# Re-create clean www directories
+New-Item -ItemType Directory -Path "www" -Force | Out-Null
+New-Item -ItemType Directory -Path "www\lib" -Force | Out-Null
+New-Item -ItemType Directory -Path "www\views" -Force | Out-Null
+
+# Copy root app files to www
 $rootFiles = @(
     "index.html",
     "app.js",
@@ -20,12 +25,11 @@ $rootFiles = @(
 foreach ($f in $rootFiles) {
     if (Test-Path $f) {
         Copy-Item $f "www\$f" -Force
-        Write-Host "Copied $f -> www\$f"
     }
 }
 
-# Copy directories to www
-Copy-Item -Recurse -Force "views" "www\views"
-Copy-Item -Recurse -Force "lib" "www\lib"
+# Copy contents of lib and views cleanly
+Copy-Item -Path "lib\*" -Destination "www\lib" -Recurse -Force
+Copy-Item -Path "views\*" -Destination "www\views" -Recurse -Force
 
-Write-Host "www folder synchronized completely!"
+Write-Host "Clean www directory synchronized successfully!"

@@ -393,4 +393,9 @@ if (theme === 'dark') {
 // Render root Preact component
 render(html`<${App} />`, document.getElementById('app'));
 
+// Immediately dismiss splash screen once mounted
+if (typeof window !== 'undefined' && window.dismissAppSplash) {
+  window.dismissAppSplash();
+}
+
 
