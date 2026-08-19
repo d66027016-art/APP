@@ -1,6 +1,6 @@
-import { h, render } from 'https://esm.sh/preact';
-import { useState, useEffect, useCallback, useMemo } from 'https://esm.sh/preact/hooks';
-import htm from 'https://esm.sh/htm';
+import { h, render } from './lib/preact.module.js';
+import { useState, useEffect, useCallback, useMemo } from './lib/hooks.module.js';
+import htm from './lib/htm.module.js';
 
 // Database and Calculations
 import { 
@@ -392,3 +392,4 @@ if (theme === 'dark') {
 
 // Render root Preact component
 render(html`<${App} />`, document.getElementById('app'));
+

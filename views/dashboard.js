@@ -1,6 +1,6 @@
-import { h } from 'https://esm.sh/preact';
-import { useState, useMemo } from 'https://esm.sh/preact/hooks';
-import htm from 'https://esm.sh/htm';
+import { h } from '../lib/preact.module.js';
+import { useState, useMemo } from '../lib/hooks.module.js';
+import htm from '../lib/htm.module.js';
 import { Card, Button, Input, Select, Icon, StatusBadge } from '../components.js';
 import { getLoanSummary } from '../calculations.js';
 import { generateDueStatementPDF } from '../pdf-generator.js';
@@ -560,3 +560,4 @@ export default function Dashboard({ loans = [], setView, currencySymbol = '₹',
     </div>
   `;
 }
+

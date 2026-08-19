@@ -1,6 +1,6 @@
-import { h } from 'https://esm.sh/preact';
-import { useState, useEffect, useMemo } from 'https://esm.sh/preact/hooks';
-import htm from 'https://esm.sh/htm';
+import { h } from '../lib/preact.module.js';
+import { useState, useEffect, useMemo } from '../lib/hooks.module.js';
+import htm from '../lib/htm.module.js';
 import { Card, Button, Input, Select, Icon } from '../components.js';
 import { calculateInterest } from '../calculations.js';
 
@@ -220,3 +220,4 @@ export default function AddLoan({ setView, onSave, currentDateStr, currencySymbo
     </div>
   `;
 }
+

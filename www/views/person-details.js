@@ -1,6 +1,6 @@
-import { h } from 'https://esm.sh/preact';
-import { useState, useEffect, useMemo } from 'https://esm.sh/preact/hooks';
-import htm from 'https://esm.sh/htm';
+import { h } from '../lib/preact.module.js';
+import { useState, useEffect, useMemo } from '../lib/hooks.module.js';
+import htm from '../lib/htm.module.js';
 import { Card, Button, Input, Select, Modal, Icon, StatusBadge } from '../components.js';
 import { getLoanSummary } from '../calculations.js';
 import { generatePaymentReceiptPDF, generateDueStatementPDF } from '../pdf-generator.js';
@@ -430,3 +430,4 @@ export default function PersonDetails({
     </div>
   `;
 }
+

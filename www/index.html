@@ -15,13 +15,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Dexie.js for IndexedDB -->
-  <script src="https://unpkg.com/dexie@3.2.4/dist/dexie.min.js"></script>
+  
+  <!-- Offline Local Tailwind Engine -->
+  <script src="./lib/tailwind.cdn.js"></script>
+  <!-- Dexie.js for Offline IndexedDB -->
+  <script src="./lib/dexie.min.js"></script>
   <!-- jsPDF & AutoTable for Offline PDF Receipts -->
   <script src="./lib/jspdf.umd.min.js"></script>
   <script src="./lib/jspdf.plugin.autotable.min.js"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -37,13 +39,13 @@
               500: '#64748b',
               600: '#475569',
               700: '#334155',
-              800: '#1e293b', // Secondary Deep Slate
-              900: '#0f172a', // Primary Deep Navy
+              800: '#1e293b',
+              900: '#0f172a',
             },
             accent: {
               50: '#f0fdf4',
               100: '#dcfce7',
-              500: '#10b981', // Accent Emerald Green
+              500: '#10b981',
               600: '#059669',
               700: '#047857',
             }
@@ -55,6 +57,7 @@
       }
     }
   </script>
+
   <style>
     /* Hardware acceleration & smooth scrolling */
     * {
@@ -83,14 +86,100 @@
       from { opacity: 0; transform: translateY(2px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Animated Splash Screen Keyframes */
+    @keyframes splashScaleIn {
+      0% { transform: scale(0.75); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes splashPulseGlow {
+      0%, 100% { box-shadow: 0 0 25px rgba(217, 119, 6, 0.35), 0 0 60px rgba(15, 23, 42, 0.8); }
+      50% { box-shadow: 0 0 50px rgba(217, 119, 6, 0.75), 0 0 90px rgba(16, 185, 129, 0.4); }
+    }
+    @keyframes splashBarProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    @keyframes splashFadeUp {
+      0% { transform: translateY(12px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-splash-scale {
+      animation: splashScaleIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .animate-splash-glow {
+      animation: splashPulseGlow 2.5s infinite ease-in-out;
+    }
+    .animate-splash-bar {
+      animation: splashBarProgress 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .animate-splash-text {
+      animation: splashFadeUp 0.6s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+    .animate-splash-subtext {
+      animation: splashFadeUp 0.6s ease-out 0.4s forwards;
+      opacity: 0;
+    }
   </style>
 </head>
-<body class="bg-[#F8FAFC] text-[#0F172A] dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen transition-colors duration-200 antialiased selection:bg-slate-800 selection:text-white">
+<body class="bg-[#F8FAFC] text-[#0F172A] dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen transition-colors duration-200 antialiased selection:bg-slate-800 selection:text-white relative">
+
+  <!-- Stunning Animated App Splash Screen -->
+  <div id="app-splash" class="fixed inset-0 z-50 bg-[#0F172A] flex flex-col items-center justify-center transition-opacity duration-500 ease-out select-none">
+    
+    <!-- Animated Logo Container -->
+    <div class="animate-splash-scale">
+      <div class="w-32 h-32 rounded-3xl bg-gradient-to-br from-slate-900 via-[#0F172A] to-slate-950 border-2 border-amber-500/50 p-3 flex items-center justify-center relative overflow-hidden animate-splash-glow">
+        <!-- Ambient Inner Glow Circle -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-emerald-500/10 rounded-3xl pointer-events-none"></div>
+        <!-- High-res App Logo -->
+        <img src="./icon.png" alt="Finance by Pooja Logo" class="w-24 h-24 object-contain rounded-2xl drop-shadow-xl" />
+      </div>
+    </div>
+
+    <!-- App Title with Gold Gradient -->
+    <h1 class="text-xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 mt-6 uppercase animate-splash-text">
+      Finance By Pooja
+    </h1>
+    <p class="text-xs text-slate-400 font-medium tracking-wide mt-1.5 animate-splash-subtext">
+      Personal Ledger & Interest Tracker
+    </p>
+
+    <!-- Animated Loading Progress Bar -->
+    <div class="w-40 h-1.5 bg-slate-800 rounded-full overflow-hidden mt-8 border border-slate-700/50">
+      <div class="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 rounded-full animate-splash-bar"></div>
+    </div>
+
+  </div>
+
+  <!-- App Mount Root -->
   <div id="app"></div>
+
   <!-- Application Entry Point -->
   <script type="module" src="./app.js"></script>
-  <!-- Register PWA Service Worker for Offline Execution -->
+
+  <!-- Auto Dismiss Splash Screen & Register PWA Service Worker -->
   <script>
+    function dismissSplash() {
+      const splash = document.getElementById('app-splash');
+      if (splash && splash.style.opacity !== '0') {
+        splash.style.opacity = '0';
+        setTimeout(() => {
+          if (splash.parentNode) splash.parentNode.removeChild(splash);
+        }, 500);
+      }
+    }
+
+    // Dismiss splash screen automatically after loading
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(dismissSplash, 1300);
+    });
+
+    // Fallback safety timer
+    setTimeout(dismissSplash, 3000);
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
@@ -101,6 +190,3 @@
   </script>
 </body>
 </html>
-
-
-

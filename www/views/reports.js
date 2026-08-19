@@ -1,6 +1,6 @@
-import { h } from 'https://esm.sh/preact';
-import { useMemo, useState } from 'https://esm.sh/preact/hooks';
-import htm from 'https://esm.sh/htm';
+import { h } from '../lib/preact.module.js';
+import { useMemo, useState } from '../lib/hooks.module.js';
+import htm from '../lib/htm.module.js';
 import { Card, Button, Icon } from '../components.js';
 import { getLoanSummary } from '../calculations.js';
 
@@ -391,3 +391,4 @@ export default function Reports({ loans = [], setView, currentDateStr, currencyS
     </div>
   `;
 }
+

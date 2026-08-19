@@ -1,6 +1,6 @@
-import { h } from 'https://esm.sh/preact';
-import { useState, useRef } from 'https://esm.sh/preact/hooks';
-import htm from 'https://esm.sh/htm';
+import { h } from '../lib/preact.module.js';
+import { useState, useRef } from '../lib/hooks.module.js';
+import htm from '../lib/htm.module.js';
 import { Card, Button, Input, Select, Icon } from '../components.js';
 
 const html = htm.bind(h);
@@ -198,3 +198,4 @@ import { requestNotificationPermission, triggerNotificationSignal } from '../not
     </div>
   `;
 }
+
