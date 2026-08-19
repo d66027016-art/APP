@@ -1,8 +1,7 @@
 {
   "appId": "com.financebypooja.app",
   "appName": "Finance by Pooja",
-  "webDir": ".",
-  "bundledWebRuntime": false,
+  "webDir": "www",
   "server": {
     "androidScheme": "https"
   },
